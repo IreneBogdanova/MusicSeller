@@ -1,7 +1,8 @@
-/*CREATE TABLE users
-(id INTEGER PRIMARY KEY AUTO_INCREMENT,
- first_name VARCHAR(30),
- last_name VARCHAR(30),
- email VARCHAR(30),
- pass VARCHAR(300));
-*/
+CREATE TABLE user
+(
+  id    INTEGER PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(50),
+  pass  VARCHAR(32),
+  solt  VARCHAR(32),
+  money FLOAT
+);

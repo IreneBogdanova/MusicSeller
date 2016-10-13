@@ -1,0 +1,5 @@
+CREATE TABLE playback_type (
+  id    INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(10) NOT NULL,
+  time TIME        NULL
+);
