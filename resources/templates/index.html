@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body_content %}
+<div class="jumbotron">
+    <h1>Welcome to the music shop</h1>
+
+    <div>
+        <p><a class="btn btn-primary bt-lg" href="{{servlet-context}}/home">Enter as a guest</a></p>
+        </br>
+        <p><a class="btn btn-primary bt-lg" href="{{servlet-context}}/login">Authorize</a></p>
+    </div>
+</div>
+{% endblock %}
