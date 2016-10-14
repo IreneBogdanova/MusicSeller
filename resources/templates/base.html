@@ -10,6 +10,9 @@
     {% style "/assets/font-awesome/css/font-awesome.min.css" %}
 
     {% style "/css/screen.css" %}
+    {% block css_styles %}
+
+    {% endblock %}
 </head>
 <body>
 {% block body_content %}
@@ -24,6 +27,7 @@
 <script type="text/javascript">
     var context = "{{servlet-context}}";
 </script>
+{% script "/js/app.js" %}
 {% block page-scripts %}
 {% endblock %}
 </body>
