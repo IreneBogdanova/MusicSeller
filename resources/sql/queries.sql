@@ -19,3 +19,7 @@ WHERE id = :id
 -- :doc delete a user given the id
 DELETE FROM users
 WHERE id = :id
+
+-- :name get-all-audio :? :*
+-- :doc selects all available audio
+SELECT * FROM audio

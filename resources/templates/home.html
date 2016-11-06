@@ -1,12 +1,29 @@
 {% extends "shop_base.html" %}
+
+{% block css_styles %}
+{% style "/css/home.css" %}
+{% endblock %}
+
 {% block content %}
-  <div class="jumbotron">
-    <h1>Welcome to the music shop</h1>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-
+<div class="header"></div>
+<div class="row">
+    <div class="search-panel">
+        <div class="col-lg-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+<div class="row">
+    <table id="audio-table">
+        <tbody id="audio-table-body">
+        <tr><td>Loading ...</td></tr>
+        </tbody>
+    </table>
+
+</div>
 {% endblock %}

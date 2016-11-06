@@ -11,4 +11,5 @@
 
 (devtools/install!)
 
-(core/init!)
+;(core/init!)
+(set! (.-onload js/window) core/init!)

@@ -1,5 +1,7 @@
-(ns music_shop.core)
+(ns music_shop.core
+  (:require
+    [music_shop.home :as home]
+    [ajax.core :refer [GET POST]]))
 
 (defn init! []
-  (-> (.getElementById js/document "app")
-      ))
+  (home/home-page))

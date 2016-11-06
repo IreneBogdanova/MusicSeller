@@ -1,7 +1,7 @@
 (ns music-shop.handler
   (:require [compojure.core :refer [routes wrap-routes]]
             [music-shop.layout :refer [error-page]]
-            [music-shop.routes.home :refer [home-routes]]
+            [music-shop.routes.home :refer [store-routes]]
             [compojure.route :as route]
             [music-shop.env :refer [defaults]]
             [mount.core :as mount]
@@ -13,7 +13,7 @@
 
 (def app-routes
   (routes
-    (-> #'home-routes
+    (-> #'store-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (route/not-found
