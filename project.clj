@@ -28,7 +28,7 @@
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [luminus-immutant "0.2.2"]
                  [cljs-ajax "0.5.8"]
-                 [secretary "1.2.3"]]
+                 [buddy "1.1.0"]]
 
   :min-lein-version "2.0.0"
 

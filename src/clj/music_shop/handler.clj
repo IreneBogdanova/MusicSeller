@@ -1,7 +1,7 @@
 (ns music-shop.handler
   (:require [compojure.core :refer [routes wrap-routes]]
             [music-shop.layout :refer [error-page]]
-            [music-shop.routes.home :refer [store-routes]]
+            [music-shop.routes.store-routes :refer [store-routes]]
             [compojure.route :as route]
             [music-shop.env :refer [defaults]]
             [mount.core :as mount]

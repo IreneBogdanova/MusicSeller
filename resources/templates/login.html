@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block css_styles %}
+{% style "/css/common.css" %}
+{% style "/css/registration.css" %}
+{% endblock %}
+
+{% block body_content %}
+<div class="jumbotron welcome-wrapper">
+    <h1>Log in</h1>
+
+    <form action="/login" method="post">
+        {% csrf-field %}
+        <p>{{error-message}}</p>
+        <div class="form-group">
+            <input type="email" name="email" class="form-control"
+                   id="email" placeholder="Email" required >
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control"
+                   id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <a href="/signup">Sign up</a>
+</div>
+{% endblock %}

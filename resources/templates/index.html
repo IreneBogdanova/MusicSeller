@@ -1,12 +1,20 @@
 {% extends "base.html" %}
+
+{% block css_styles %}
+{% style "/css/common.css" %}
+{% style "/css/index.css" %}
+{% endblock %}
+
 {% block body_content %}
-<div class="jumbotron">
+<div class="jumbotron welcome-wrapper">
     <h1>Welcome to the music shop</h1>
 
-    <div>
-        <p><a class="btn btn-primary bt-lg" href="{{servlet-context}}/home">Enter as a guest</a></p>
-        </br>
-        <p><a class="btn btn-primary bt-lg" href="{{servlet-context}}/login">Authorize</a></p>
-    </div>
+    <p class="enter-btn">
+        <a class="btn btn-primary bt-lg" href="{{servlet-context}}/home">Enter as a guest</a>
+    </p>
+
+    <p class="enter-btn">
+        <a class="btn btn-primary bt-lg" href="{{servlet-context}}/login">Authorize</a>
+    </p>
 </div>
 {% endblock %}
