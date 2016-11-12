@@ -1,0 +1,6 @@
+CREATE TABLE role (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  role VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX role_UNIQUE (role ASC)
+);

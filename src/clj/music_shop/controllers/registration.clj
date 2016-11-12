@@ -2,7 +2,8 @@
   (:require [music-shop.layout :as layout]
             [ring.util.response :refer [response redirect]]
             [buddy.hashers :as hashers]
-            [music-shop.db.core :as db]))
+            [music-shop.db.core :as db]
+            [music-shop.model.user :as user]))
 
 
 (defn login-page
@@ -16,13 +17,21 @@
 (defn encrypt-password [password]
   (hashers/derive password {:alg :pbkdf2+sha256             ;salt is auto generated
                             }))
+
 (defn check-password [password user-pwd]
   (hashers/check password user-pwd))
+
+(comment (defn check-user [email password]
+           (if-let [user/map->User (get-by-email email)]         ;todo ask!  map->User
+             (print (str myUser))
+             (if (check-password password (get myUser :password))
+               myUser))))
 
 (defn check-user [email password]
   (if-let [user (db/get-user {:email email})]
     (if (check-password password (get-in user [:pass]))
       (dissoc user :password))))
+
 
 (defn do-login [{{email :email password :password} :params
                  session                           :session}]
@@ -48,4 +57,4 @@
 (defn log-out [{session :session}]
   (assoc
     (redirect "/home")
-    :session(dissoc session :user)))
+    :session (dissoc session :user)))
