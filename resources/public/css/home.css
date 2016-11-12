@@ -24,9 +24,18 @@
     width: 100px;
 }
 
-.add-btn {
-    background: url("../img/cart.png") center no-repeat;
+.add-btn,
+.added-audio {
     background-size: cover;
     width: 45px;
     height: 45px;
+}
+
+.add-btn {
+    background: url("../img/cart.png") center no-repeat;
+}
+
+.added-audio {
+    background: url("../img/addedvalue.png") center no-repeat;
+    background-size: cover;
 }

@@ -4,4 +4,5 @@
     [ajax.core :refer [GET POST]]))
 
 (defn init! []
-  (home/home-page))
+  (if (not (nil? (js/document.getElementById "home-content")))
+    (home/home-page)))

@@ -23,6 +23,12 @@
                 About
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{servlet-context}}/basket"
+                   class="nav-link{% ifequal page " basket.html" %} active{%endifequal%}">
+                Basket
+                </a>
+            </li>
             {% block header_content %}
             {% endblock %}
         </ul>

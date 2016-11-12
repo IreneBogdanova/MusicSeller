@@ -22,7 +22,7 @@
   (hashers/check password user-pwd))
 
 (comment (defn check-user [email password]
-           (if-let [user/map->User (get-by-email email)]         ;todo ask!  map->User
+           (if-let [user/map->User (get-by-email email)]
              (print (str myUser))
              (if (check-password password (get myUser :password))
                myUser))))
