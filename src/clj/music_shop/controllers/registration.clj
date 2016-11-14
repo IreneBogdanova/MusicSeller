@@ -14,44 +14,25 @@
   ([] (layout/render "signup.html"))
   ([error] (layout/render "signup.html" (merge {:error-message error}))))
 
-(defn encrypt-password [password]
-  (hashers/derive password {:alg :pbkdf2+sha256             ;salt is auto generated
-                            }))
-
-(defn check-password [password user-pwd]
-  (hashers/check password user-pwd))
-
-(comment (defn check-user [email password]
-           (if-let [user/map->User (get-by-email email)]
-             (print (str myUser))
-             (if (check-password password (get myUser :password))
-               myUser))))
-
 (defn check-user [email password]
-  (if-let [user (db/get-user {:email email})]
-    (if (check-password password (get-in user [:pass]))
-      (dissoc user :password))))
-
+  (if-let [user-to-login (user/get-by-email email)]
+    (.check-password user-to-login password)))
 
 (defn do-login [{{email :email password :password} :params
                  session                           :session}]
-  (if-let [user (check-user email password)]
+  (if (check-user email password)
     (assoc
       (redirect "/home")
       :session (assoc session :user email))                 ; Add an :identity to the session
     (login-page "There is no user with such credentials")))
 
-(defn create-user [email password]
-  (try
-    (db/create-user! {:email email
-                      :pass  (encrypt-password password)})
-    (catch Exception e
-      (.println System/out e)
-      (signup-page "Email address already in use"))))
-
 (defn signup [{{email :email password :password verify :verify} :params}]
   (if (.equals verify password)
-    (create-user email password)
+    (try
+      (user/create-user email password)
+      (redirect "/")
+      (catch Exception e
+        (signup-page (.getMessage e))))
     (signup-page "Password does not match the confirm password")))
 
 (defn log-out [{session :session}]

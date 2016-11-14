@@ -1,12 +1,12 @@
 -- :name create-user! :! :n
 -- :doc creates a new user record
 INSERT INTO user
-(email, pass)
-VALUES (:email, :pass)
+(email, pass, money, role_id)
+VALUES (:email, :pass, :money, :role_id)
 
 -- :name get-user :? :1
 -- :doc retrieve a user given the email
-SELECT * FROM user
+SELECT email, pass, money, role_id FROM user
 WHERE email = :email
 
 -- :name delete-user! :! :n

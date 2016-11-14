@@ -1,8 +1,31 @@
 (ns music-shop.model.user
-  (require  [music-shop.db.core :as db]))
+  (require [music-shop.db.core :as db]
+           [buddy.hashers :as hashers]))
 
-(defrecord User [email password money])
+(defprotocol User
+  (check-password [pass]))
+
+(defrecord Person [email password money role]
+  User
+  (check-password [pass] (hashers/check password pass)))
 
 (defn get-by-email [email]
-  (let [user (db/get-user {:email email})]
-    (User. (get user :email) (get user :passw) (get user :money))))
+  (map->Person (db/get-user {:email email})))
+
+(def default-money-amount (float 0))
+
+(def user-role-id (int 1))
+
+(defn encrypt-password [password]
+  (hashers/derive password {:alg :pbkdf2+sha256}))
+
+(defn create-user [email password]
+  (try
+    (db/create-user! {:email email
+                      :pass  (encrypt-password password)
+                      :money default-money-amount
+                      :role_id  user-role-id})
+    (Person. email password default-money-amount user-role-id)
+    (catch Exception e
+      (.println System/out e)
+      (throw (Exception. "Email address already in use")))))
