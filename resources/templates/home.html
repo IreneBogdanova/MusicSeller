@@ -4,38 +4,22 @@
 {% style "/css/home.css" %}
 {% endblock %}
 
-{% block header_content %}
-{%if user%}
-<li class="nav-item" style="float: right"> Hello {{user}}</li>
-<li class="nav-item" style="float: right"><a href="/logout">Log out</a></li>
-{% endif %}
-{% endblock %}
-
 {% block content %}
 <div id="home-content">
     {% csrf-field %}
     <div class="header"></div>
     <div class="row">
         <div class="search-panel">
-            <div class="col-lg-3">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                 </span>
-                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <table id="audio-table">
-            <tbody id="audio-table-body">
-            <tr>
-                <td>Loading ...</td>
-            </tr>
-            </tbody>
-        </table>
-
+    <div class="row" id="audio-info">
+        <span><img class="loader" src="/img/load.gif"/></span>
     </div>
 </div>
 

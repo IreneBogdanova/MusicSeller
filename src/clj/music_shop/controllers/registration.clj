@@ -16,16 +16,18 @@
 
 (defn check-user [email password]
   (if-let [user-to-login (user/get-by-email email)]
-    (.check-password user-to-login password)))
+    (if (.check-password user-to-login password) user-to-login)))
 
 (defn do-login [{{email :email password :password} :params
                  session                           :session}]
-  (if (check-user email password)
+  (if-let [user (check-user email password)]
     (assoc
       (redirect "/home")
-      :session (assoc session :user email))                 ; Add an :identity to the session
+      :session (assoc session :user user))                  ; Add an :identity to the session
     (login-page "There is no user with such credentials")))
 
+
+;todo load basket data from db into session
 (defn signup [{{email :email password :password verify :verify} :params}]
   (if (.equals verify password)
     (try

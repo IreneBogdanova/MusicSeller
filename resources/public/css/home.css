@@ -5,10 +5,22 @@
     margin-bottom: 20px;
 }
 
+.loader {
+    width: 35px;
+    height: 35px;
+    margin: 10px 0;
+}
+
+.search-panel{
+    width: 300px;
+}
+
+.info-content .add{
+    margin: 10px 0;
+}
+
 #audio-table {
     width: 70%;
-    margin: 20px 10px;
-
 }
 
 #audio-table td p {
@@ -25,17 +37,30 @@
 }
 
 .add-btn,
-.added-audio {
-    background-size: cover;
+.added-audio,
+.edit-audio {
     width: 45px;
     height: 45px;
+    margin: 0 5px;
 }
 
 .add-btn {
     background: url("../img/cart.png") center no-repeat;
+    background-size: cover;
+    margin: 10px;
 }
 
 .added-audio {
     background: url("../img/addedvalue.png") center no-repeat;
     background-size: cover;
+}
+
+.edit-audio {
+    background: url("../img/edit.png") center no-repeat;
+    background-size: cover;
+}
+
+/* Audio popup */
+#file {
+    margin: 10px 0;
 }

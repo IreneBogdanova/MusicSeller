@@ -1,41 +1,32 @@
 (ns music-shop.controllers.audio
   (:require [music-shop.layout :as layout]
             [music-shop.db.core :as db]
-            [music-shop.model.audio :refer (->Audiotape)])
-  (:import (music_shop.model.audio Audiotape)))
+            [music-shop.model.audio :as audiotape]))
 
 (defn home-page [{session :session}]
-  (layout/render "home.html" (merge {:user (get session :user)})))
+  (layout/render "home.html" (merge {:user (get-in session [:user :email])})))
 
-(defn selected? [audio selected-list]
-  (if-not (empty? selected-list)
-    (.contains selected-list (:id audio))
-    false))
-
-(defn create-audio [audio-values selected-list]
-  (Audiotape.
-    (:id audio-values) (:name audio-values) (:artist audio-values)
-    (:upload_date audio-values) (:path audio-values) (selected? audio-values selected-list)))
-
-(defn get-audio-records [db-list audio-list selected-list]
-  (if (empty? db-list)
-    audio-list
-    (conj
-      (let [rest (rest db-list)]
-        (get-audio-records rest audio-list selected-list))
-      (create-audio (first db-list) selected-list))))
-
-(defn get-audios [{session :session}]
-  (let [audio-list (seq (db/get-all-audio))]
-    (get-audio-records audio-list () (get session :audio-list ()))))
-
-
-
-(defn save-id [session id]
+(defn save-selected-id [session id]
   (conj (get session :audio-list ()) id))
 
 (defn add-to-basket [{{id :audio-id} :params
                       session        :session}]
   {:status  200
-   :session (assoc session :audio-list (save-id session id))
+   :session (assoc session :audio-list (save-selected-id session id))
    :body    {:id id}})
+
+(defn get-audios [session]
+  (let [audio-list (seq (db/get-all-audio))]
+    (audiotape/get-audio-records audio-list () (get session :audio-list ()))))
+
+(defn save-new-audio [audio]
+  (db/add-new-audio! (merge audio {:upload "2016-10-10 00:00:00" :path "audio.mp3" :playback 1})))
+
+(defn save-audio [{{audio :audio} :params
+                   session        :session}]
+  (if (.equals (get audio :id) 0)
+    (save-new-audio audio)
+    (db/update-audio! audio))
+  {:status  200
+   :session session
+   :body    true})
