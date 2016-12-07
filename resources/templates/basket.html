@@ -4,18 +4,7 @@
 {% endblock %}
 
 {% block content %}
-<div>
-    {% if audios %}
-    {% for audio in audios %}
-    <div class="price-header">Your selected audios:</div>
-    <div class="audio">
-        <div class="name">{{audio.artist}} - {{audio.name}}</div>
-        <div class="price">{{audio.price}}</div>
-    </div>
-    {% endfor %}
-    <div class="total"><em>Total sum :</em> {{total-sum}}</div>
-    {% else %}
-    <p> There are no songs selected yet</p>
-    {% endif %}
+{% csrf-field %}
+<div id="basket-content">
 </div>
 {% endblock %}

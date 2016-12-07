@@ -1,11 +1,11 @@
 CREATE TABLE user_basket (
-  user_id  INT NOT NULL,
+  user_email VARCHAR(50) NOT NULL ,
   audio_id INT NOT NULL,
-  PRIMARY KEY (user_id, audio_id),
-  INDEX fk_user_basket_user (user_id ASC),
+  PRIMARY KEY (user_email, audio_id),
+  INDEX fk_user_basket_user (user_email ASC),
   INDEX fk_user_basket_audio (audio_id ASC),
   CONSTRAINT fk_user_basket_user
-  FOREIGN KEY (user_id)
+  FOREIGN KEY (user_email)
   REFERENCES user (id)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,

@@ -1,8 +1,29 @@
-.price-header{
-
+.header {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
 }
-.audio div {
-    display: inline-block;
+
+.basket-table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+th {
+    background-color: #e8731c;
+    color: white;
+}
+
+th, td {
+    padding: 8px;
+}
+
+.basket-table tr {
+    height: 30px;
 }
 
 .name {
@@ -12,4 +33,13 @@
 .total {
     margin: 10px 0;
     font-size: 20px;
+}
+
+tr .price {
+    width: 60px;
+    text-align: center;
+}
+
+.order-btn {
+    float: right;
 }

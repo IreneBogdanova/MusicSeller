@@ -29,11 +29,15 @@
            (POST "/signup" request (registr/signup request))
            (GET "/logout" request (registr/log-out request))
 
-           (GET "/get-home-page-data" request (get-home-page-data request))
            (GET "/home" request (audio/home-page request))
+           (GET "/get-home-page-data" request (get-home-page-data request))
            (POST "/save-audio" request (audio/save-audio request))
            (POST "/add-to-basket" request (audio/add-to-basket request))
-           (GET "/basket" request (basket/basket-page request))
+
+           (GET "/basket" [] (basket/basket-page))
+           (GET "/get-basket-page-data" request (basket/get-page-data request))
+           (POST "/remove-from-basket" request (basket/remove-from-basket request))
+
            (GET "/about" [] (about-page)))
 
 

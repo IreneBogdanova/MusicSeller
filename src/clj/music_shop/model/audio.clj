@@ -8,19 +8,12 @@
     (:id db-audio) (:name db-audio) (:artist db-audio) (:upload db-audio) (:price db-audio)
     (:path db-audio) (:listen_auth_only db-audio) (:playback db-audio) selected))
 
-(defn selected? [audio selected-list]
-  (if-not (empty? selected-list)
-    (.contains selected-list (:id audio))
-    false))
+(defn mark-selected-audios [audios selected-ids-set]
+  (map #(assoc % :selected (contains? selected-ids-set (:id %))) audios))
 
-; todo переписать на фильтр
-(defn get-audio-records [db-list audio-list selected-list]
-  (if (empty? db-list)
-    audio-list
-    (conj
-      (let [rest (rest db-list)]
-        (get-audio-records rest audio-list selected-list))
-      (create-audio (first db-list) (selected? (first db-list) selected-list)))))
+(defn get-audio-records [audios-from-db selected-ids]
+  (let [ids-set (into #{} selected-ids)]
+    (map #(map->Audiotape %) (mark-selected-audios audios-from-db ids-set))))
 
 
 
