@@ -31,4 +31,4 @@
       (.println System/out e)
       (throw (Exception. "Email address already in use")))))
 
-(def role {0 :guest 1 :user 2 :admin})
+(def role (atom {0 :guest 1 :user 2 :admin}))

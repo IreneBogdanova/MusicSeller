@@ -17,7 +17,7 @@
 (defn get-home-page-data [{session :session}]
   {:status  200
    :session session
-   :body    {:role       (get user/role (get-in session [:user :role] 0))
+   :body    {:role       (get @user/role (get-in session [:user :role] 0))
              :audio-list (audio/get-audios session)}})
 
 (defroutes store-routes
@@ -37,7 +37,7 @@
            (GET "/basket" [] (basket/basket-page))
            (GET "/get-basket-page-data" request (basket/get-page-data request))
            (POST "/remove-from-basket" request (basket/remove-from-basket request))
-
+           (GET "/order-basket" request (basket/order request))
            (GET "/about" [] (about-page)))
 
 

@@ -1,0 +1,14 @@
+{% extends "shop_base.html" %}
+{% block css_styles %}
+{% style "/css/basket.css" %}
+{% endblock %}
+
+{% block content %}
+{% csrf-field %}
+<div id="order-content">
+    <div> Order files links:</div>
+    {% for link in links %}
+        <p><a href="{{link}}" download>Download file </a></p>
+    {% endfor %}
+</div>
+{% endblock %}

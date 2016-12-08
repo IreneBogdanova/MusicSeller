@@ -4,6 +4,7 @@
             [ajax.core :refer [GET POST]]
             [music_shop.audio-popup :as audio-popup]))
 
+(def all-audios-list (reagent/atom ()))
 (def role-admin :admin)
 (def upload-path "/upload/")
 (defn is-user-admin [role]
@@ -35,7 +36,8 @@
 (defn get-add-button-map [selected id]
   (if selected
     {:class "added-audio btn"}
-    {:class "add-btn btn" :on-click #(add-to-basket id)}))
+    {:class    "add-btn btn"
+     :on-click #(add-to-basket id)}))
 
 (defn add-btn [audio]
   "Add audio to the basket button"
@@ -55,7 +57,7 @@
     (add-btn audio)
     (if is-admin (edit-button audio))]])
 
-(defn audio-list-view [{role :role audios :audio-list}]
+(defn audio-list-view [role]
   [:div.info-content
    (if (is-user-admin role)
      [:button.add {:class    "btn"
@@ -63,14 +65,15 @@
       "Add new audio"])
    [:table {:id "audio-table"}
     [:tbody.audio-list
-     (for [audio audios]
+     (for [audio @all-audios-list]
        ^{:key audio} [audio-view audio (is-user-admin role)])]]
    [reagent-modals/modal-window]])
 
-(defn init-audio-table [response]
+(defn init-audio-table [{role :role audios :audio-list}]
   "Create view of audios, passed in response"
+  (reset! all-audios-list audios)
   (let [audio-info (.getElementById js/document "audio-info")]
-    (reagent/render [audio-list-view response] audio-info)))
+    (reagent/render [audio-list-view role] audio-info)))
 
 (defn home-page []
   (GET "/get-home-page-data" {:handler init-audio-table}))
