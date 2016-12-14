@@ -1,13 +1,29 @@
 (ns music-shop.test.handler
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
-            [music-shop.handler :refer :all]))
+            [music-shop.handler :refer :all]
+            [music-shop.test.util :as util]))
 
-(deftest test-app
-  (testing "main route"
-    (let [response ((app) (request :get "/"))]
-      (is (= 200 (:status response)))))
+(defn get-response [url]
+  ((app) (request :get url)))
 
-  (testing "not-found route"
-    (let [response ((app) (request :get "/invalid"))]
+(defn check-correct-response [url]
+  (let [response (get-response url)]
+    (util/assert-equals 200 (:status response))))
+
+(deftest test-app-routes
+  (testing "Index route"
+    (check-correct-response "/"))
+
+  (testing "Home route"
+    (check-correct-response "/home"))
+
+  (testing "Log in route"
+    (check-correct-response "/login"))
+
+  (testing "Sign up route"
+    (check-correct-response "/signup"))
+
+  (testing "Not-found route"
+    (let [response (get-response "/invalid")]
       (is (= 404 (:status response))))))
